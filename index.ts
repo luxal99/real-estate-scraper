@@ -9,7 +9,7 @@ const domainName = 'https://www.nekretnine.rs';
 
 const app = express()
 
-app.listen(3000, () => {
+app.listen(3001, () => {
     console.log('STARTED')
 })
 
@@ -37,9 +37,9 @@ async function getRealEstates(url = baseUrl) {
 
     const next = $('.next-article-button').attr('href')
 
-    // if (next) {
-    //     await getRealEstates(domainName + next)
-    // } else {
-    //     return realEstateTitles
-    // }
+    if (next) {
+        await getRealEstates(domainName + next)
+    } else {
+        return realEstateTitles
+    }
 }

@@ -42,7 +42,7 @@ let realEstateTitles = [];
 const baseUrl = 'https://www.nekretnine.rs/stambeni-objekti/stanovi/izdavanje-prodaja/prodaja/grad/nis/kvadratura/55_70/cena/80000_110000/lista/po-stranici/50/';
 const domainName = 'https://www.nekretnine.rs';
 const app = express();
-app.listen(3000, () => {
+app.listen(3001, () => {
     console.log('STARTED');
 });
 app.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -66,10 +66,11 @@ function getRealEstates(url = baseUrl) {
         });
         // realEstateTitles = [...realEstateTitles, ...titles]
         const next = $('.next-article-button').attr('href');
-        // if (next) {
-        //     await getRealEstates(domainName + next)
-        // } else {
-        //     return realEstateTitles
-        // }
+        if (next) {
+            yield getRealEstates(domainName + next);
+        }
+        else {
+            return realEstateTitles;
+        }
     });
 }
