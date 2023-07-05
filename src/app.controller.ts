@@ -1,4 +1,4 @@
-import {Controller, Get, Res} from '@nestjs/common';
+import {Controller, Get, Post, Res} from '@nestjs/common';
 import { AppService } from './app.service';
 import { spawn } from 'child_process';
 import {Response} from "express";
@@ -13,5 +13,10 @@ export class AppController {
     nkrs.stdout.on('data',(data)=>{
      res.json(data)
     })
+  }
+
+  @Post()
+  saveCurrentNewestRealEstates(@Res() res:Response){
+
   }
 }
