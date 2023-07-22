@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { EventEmitterModule } from '@nestjs/event-emitter';
 import {TypeOrmModule} from "@nestjs/typeorm";
+import {RealEstate} from "./modules/real-estate/entity/RealEstate";
+import {RealEstateModule} from "./modules/real-estate/real-estate.module";
+import {NekretnineRsService} from "./core/service/nekretnine-rs.service";
 
 @Module({
   imports: [ TypeOrmModule.forRoot({
@@ -11,11 +13,11 @@ import {TypeOrmModule} from "@nestjs/typeorm";
     port: 3306,
     username: 'root',
     password: 'Luxal.99',
-    database: 'real_estate_scraper',
-    entities: [],
+    database: 'real_estate_scrapper',
+    entities: [RealEstate],
     synchronize: true,
-  }),],
+  }),RealEstateModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,NekretnineRsService],
 })
 export class AppModule {}
