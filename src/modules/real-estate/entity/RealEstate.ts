@@ -6,17 +6,16 @@ export class RealEstate {
   id: number;
 
   @Column("varchar", { name: "title", nullable: true, length: 1024 })
-  title: string ;
+  title: string;
   @Column("varchar", { name: "link", nullable: true, length: 256 })
-  link: string ;
+  link: string;
 
   @Column("varchar", { name: "picture", nullable: true, length: 256 })
-  picture: string ;
-
+  picture: string;
 
   @Column("double", { name: "price", nullable: true, precision: 22 })
-  price: number ;
+  price: number;
 
   @Column("int", { name: "area", nullable: true })
-  area: number ;
+  area: number;
 }
