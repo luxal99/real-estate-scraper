@@ -19,26 +19,19 @@ export class FourWallsService implements FactoryRealEstateInterface {
     const $ = cheerio.load(realEstateResponse.data);
     const realEstates = $("app-ad-search-preview-compact");
 
-    // console.log(realEstateResponse.data)
     realEstates.each(function () {
-      //@ts-ignore
-      // console.log($(this).children()[0].firstChild.sourceCodeLocation)
-      // console.log($(this).find('#hello').attr("href"))
-      // console.log($(this).find('#internal').attr("href"))
-      const title = $(this).children("div").text();
-      console.log(
+      const title = $(this)
+        .find('[class="truncate bg-gray-100 p-1 text-xs text-gray-400"]')
+        .text();
+      const price = Number.parseInt(
         $(this)
-          .children("div")
-          .find("div:nth-child(2)")
-          .find("div:first-child")
-          .find("div")
-          .find("h3")
-            .text()
+          .find("app-link")
+          .find("a")
+          .find("span")
+          .text()
+          .replace("€", "")
+          .replace(".", "")
       );
-      const price = $(this)
-        .find(".block .text-2xl .font-medium")
-        .text()
-        .split("€")[0];
       let link = $(this).find("app-link").find("a").attr("href");
       link = link.includes("https://www.4zida.rs")
         ? link
@@ -48,12 +41,26 @@ export class FourWallsService implements FactoryRealEstateInterface {
         .find("a")
         .find("source")
         .attr("srcset");
-      realEstateData.push({ title, price: 0, link, picture, area: 0 });
+      const area = Number.parseInt(
+        $(this)
+          .find("app-link")
+          .find("a")
+          .find("strong:first-child")
+          .text()
+          .replace("m²", "")
+      );
+      realEstateData.push({ title, price, link, picture, area });
     });
 
-    // console.log(realEstateData)
+    const next: string = $('[data-cy="showPlusOne"]').attr("href");
 
-    const next: string = $(".next-article-button").attr("href");
-    return realEstateData;
+    if (next) {
+      return await this.getNewestRealEstates(
+        `${ScraperDomain.FOUR_WALLS}${next}`,
+        realEstateData
+      );
+    } else {
+      return realEstateData;
+    }
   }
 }
