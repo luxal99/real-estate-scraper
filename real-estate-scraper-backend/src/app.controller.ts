@@ -16,9 +16,9 @@ export class AppController {
     private fourWallsService: FourWallsService
   ) {}
 
-  @Get()
+  @Post()
   async getNewestRealEstates(@Res() res: Response) {
-    const [fourWalls,nekretnineRs] = await Promise.all([
+    const [fourWalls, nekretnineRs] = await Promise.all([
       this.fourWallsService.getNewestRealEstates(
         "https://www.4zida.rs/prodaja-stanova/nis?jeftinije_od=110000eur&vece_od=60m2&stanje=u_izgradnji&stanje=novo",
         []
@@ -27,21 +27,8 @@ export class AppController {
         "https://www.nekretnine.rs/stambeni-objekti/stanovi/izdavanje-prodaja/prodaja/grad/nis/kvadratura/55_70/cena/80000_110000/lista/po-stranici/50/",
         []
       ),
-    ])
+    ]);
     await this.realEstateService.save([...fourWalls, ...nekretnineRs]);
     res.send("OK");
-  }
-
-  @Post()
-  async saveCurrentNewestRealEstates(
-    @Res() res: Response,
-    @Body() realEstates: RealEstate[]
-  ) {
-    try {
-      await this.realEstateService.save(realEstates);
-      res.send({ status: "okk" });
-    } catch (err) {
-      res.send(err);
-    }
   }
 }

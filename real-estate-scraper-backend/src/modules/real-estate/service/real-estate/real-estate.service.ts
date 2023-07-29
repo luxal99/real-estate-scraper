@@ -8,6 +8,8 @@ import * as cheerio from "cheerio";
 import { ScraperDomain } from "../../../../core/enum/ScraperDomain";
 import fs from "fs";
 import { RealEstateCreateDto } from "../../dto/real-estate-create.dto";
+import { HttpErrorException } from "../../../../core/exception/HttpErrorException";
+import { RealEstateSaveException } from "../../../../core/exception/RealEstateSaveException";
 
 @Injectable()
 export class RealEstateService {
@@ -16,8 +18,12 @@ export class RealEstateService {
     private realEstateRepository: Repository<RealEstate>
   ) {}
 
-  async save(realEstates: any): Promise<void> {
-    await this.realEstateRepository.save(realEstates);
+  async save(realEstates: RealEstateCreateDto[]): Promise<void> {
+    try {
+      await this.realEstateRepository.save(realEstates);
+    } catch (err) {
+      throw new RealEstateSaveException();
+    }
   }
 
   async getAll(): Promise<RealEstate[]> {
