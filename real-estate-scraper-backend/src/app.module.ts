@@ -4,10 +4,8 @@ import { AppService } from "./app.service";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { RealEstate } from "./modules/real-estate/entity/RealEstate";
 import { RealEstateModule } from "./modules/real-estate/real-estate.module";
-import { NekretnineRsService } from "./core/service/nekretnine-rs.service";
-import { FourWallsService } from "./core/service/4zida.service";
-import {APP_FILTER} from "@nestjs/core";
-import {HttpErrorExceptionFilter} from "./core/filters/HttpErrorExceptionFilter";
+import { APP_FILTER } from "@nestjs/core";
+import { HttpErrorExceptionFilter } from "./core/filters/HttpErrorExceptionFilter";
 
 @Module({
   imports: [
@@ -25,8 +23,6 @@ import {HttpErrorExceptionFilter} from "./core/filters/HttpErrorExceptionFilter"
   controllers: [AppController],
   providers: [
     AppService,
-    NekretnineRsService,
-    FourWallsService,
     {
       provide: APP_FILTER,
       useClass: HttpErrorExceptionFilter,
