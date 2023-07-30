@@ -5,3 +5,5 @@ export interface RealEstateQuery {
   areaFrom?: number;
   areaTo?: number;
 }
+
+export type RealEstateFilters = Omit<RealEstateQuery, "page">;

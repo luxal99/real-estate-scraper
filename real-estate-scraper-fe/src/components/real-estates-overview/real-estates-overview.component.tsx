@@ -9,6 +9,7 @@ import {
 import { RealEstateCardComponent } from "../real-estate-card/real-estate-card.component.tsx";
 import { RealEstateQuery } from "../../core/models/query/RealEstateQuery.ts";
 import { LoaderComponent } from "../loader/loader.component.tsx";
+import { RealEstatesFiltersComponent } from "../real-estates-filters/real-estates-filters.component.tsx";
 export const RealEstatesOverviewComponent =
   ({}: RealEstatesOverviewComponentProps) => {
     const [realEstates, setRealEstates] = useState<RealEstate[]>([]);
@@ -52,6 +53,7 @@ export const RealEstatesOverviewComponent =
 
     return (
       <div>
+        <RealEstatesFiltersComponent setRealEstateQuery={setRealEstateQuery} />
         <div className="real-estate-overview">
           {realEstates.map((realEstate, index) => (
             <RealEstateCardComponent realEstate={realEstate} key={index} />
