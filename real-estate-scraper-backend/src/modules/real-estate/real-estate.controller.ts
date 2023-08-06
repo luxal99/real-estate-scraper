@@ -2,7 +2,7 @@ import { Controller, Get, Post, Query, Req, Res } from "@nestjs/common";
 import { RealEstateService } from "./service/real-estate/real-estate.service";
 import { NekretnineRsService } from "../../core/service/nekretnine-rs.service";
 import { FourWallsService } from "../../core/service/4zida.service";
-import { Request, Response } from "express";
+import { Response } from "express";
 import { RealEstateQuery } from "./query/RealEstateQuery";
 import { RealEstateQueryParam } from "./annoitations/real-estate-query.annotation";
 

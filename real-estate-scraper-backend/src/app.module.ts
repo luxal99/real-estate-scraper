@@ -4,8 +4,9 @@ import { AppService } from "./app.service";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { RealEstate } from "./modules/real-estate/entity/RealEstate";
 import { RealEstateModule } from "./modules/real-estate/real-estate.module";
-import { APP_FILTER } from "@nestjs/core";
+import { APP_FILTER, Reflector } from "@nestjs/core";
 import { HttpErrorExceptionFilter } from "./core/filters/HttpErrorExceptionFilter";
+import { ScheduleModule } from "@nestjs/schedule";
 
 @Module({
   imports: [
